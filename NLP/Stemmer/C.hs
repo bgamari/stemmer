@@ -1,14 +1,21 @@
 {-# OPTIONS  -XEmptyDataDecls #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
 
--- | Haskell bindings for the Snowball stemming library
-module NLP.Stemmer.C ( new
-                     , delete
-                     , stem
-                     , Algorithm(..)
-                     , Stemmer
-                     , withStemmer
-                     ) where
+-- | Haskell bindings for the Snowball stemming library.
+-- This module contains all the low-level functions and are more or less direct
+-- translations of the foreign function calls.  The 'stem' function expects
+-- strings to use UTF-8 encoding.
+module NLP.Stemmer.C (
+    -- * Types
+      Algorithm(..)
+    , Stemmer
+    -- * Low level functions
+    , new
+    , delete
+    , stem
+    -- * Wrapper
+    , withStemmer
+    ) where
 
 import Data.Char        (toLower)
 import Foreign.C        (CString, CInt, peekCStringLen, newCString)
@@ -19,7 +26,7 @@ data StemmerStruct
 -- | Pointer to a stemmer instance
 type Stemmer = Ptr StemmerStruct
 
--- | Algorithms to create a stemmer instance for
+-- | Available algorithms.  For English, 'English' is recommended over 'Porter'.
 data Algorithm = Danish
                | Dutch
                | English
@@ -43,7 +50,8 @@ foreign import ccall "libstemmer.h sb_stemmer_delete" sb_stemmer_delete :: Stemm
 foreign import ccall "libstemmer.h sb_stemmer_stem"   sb_stemmer_stem   :: Stemmer -> CString -> CInt -> IO (CString)
 foreign import ccall "libstemmer.h sb_stemmer_length" sb_stemmer_length :: Stemmer -> IO CInt
 
--- | Create a new stemmer instance.  When you're done using the stemmer, you should 'delete' it 
+-- | Create a new stemmer instance.  When you're done using the stemmer, you
+-- should 'delete' it, freeing the memory.
 new :: Algorithm -> IO Stemmer
 new algorithm = do
     algorithm' <- algorithmCString algorithm
@@ -64,7 +72,8 @@ stem stemmer word = do
 
 -----------------------------------------------------------
 
--- | Perform stemming using a wrapper handling the low-level creation and deletion
+-- | Perform stemming using a wrapper handling the low-level creation and
+-- deletion of the stemmer instance.
 withStemmer :: Algorithm -> (Stemmer -> IO a) -> IO a
 withStemmer algorithm action = do
     stemmer <- new algorithm
