@@ -1,38 +1,17 @@
-
 -- | Haskell bindings for the Snowball stemming library
 -- A 'pure' stemming interface. Strings should use UTF-8 encoding. 
 module NLP.Stemmer ( 
     -- * Stemming algorithms
-      Algorithm(..)
+      Stemmer(..)
     -- * Stemming functions
     , stem
-    , stem'
-    , stem''
-    , stemWords
     ) where
 
-import           NLP.Stemmer.C (Algorithm)
+import           NLP.Stemmer.C (Stemmer)
 import qualified NLP.Stemmer.C as C
 import           Foreign       (unsafePerformIO)
 
-
 -- | Stem a word
 {-# NOINLINE stem #-}
-stem :: Algorithm -> String -> String
+stem :: Stemmer -> String -> String
 stem algorithm input = unsafePerformIO $ C.stem algorithm input
-
-{-# NOINLINE stem'' #-}
-stem'' :: Algorithm -> String -> String
-stem'' algorithm input = unsafePerformIO $ C.stem'' algorithm input
-
-{-# NOINLINE stem' #-}
-stem' :: Algorithm -> String -> String
-stem' algorithm input = withStemmer algorithm (\stemmer -> C.stem' stemmer input)
-
--- | Stem a list of words, more efficient than @map 'stem'@
-stemWords :: Algorithm -> [String] -> [String]
-stemWords algorithm input = withStemmer algorithm (\stemmer -> mapM (C.stem' stemmer) input)
-
-{-# NOINLINE withStemmer #-}
-withStemmer :: Algorithm -> (C.Stemmer' -> IO a) -> a
-withStemmer algorithm action = unsafePerformIO $ C.withStemmer algorithm action

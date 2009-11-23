@@ -15,17 +15,17 @@ stemUserInput = do
     string <- getLine
     unless (string == "") $ do 
         putStrLn $ (++) "< " $ unwords $ 
-                               stemWords Dutch $ 
+                               map (stem English) $ 
                                words string
         stemUserInput
 
 bread :: Int -> [String]
-bread n = take n (repeat "tenten")
+bread n = take n (repeat "brood")
 
 main = defaultMain [
         bgroup "stemmer" [ bench "stem"    $ B (map (stem Dutch))   (bread 100000)
-                         , bench "stem'"   $ B (map (stem' Dutch))  (bread 100000)
-                         , bench "stem''"  $ B (map (stem'' Dutch)) (bread 100000)
+                         -- , bench "stem'"   $ B (map (stem' Dutch))  (bread 100000)
+                         -- , bench "stem''"  $ B (map (stem'' Dutch)) (bread 100000)
                          -- , bench "stemWords" $ B (stemWords Dutch)   (bread 10000)
                          ]
                    ]
