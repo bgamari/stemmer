@@ -13,7 +13,7 @@ module NLP.Stemmer.C (
     ) where
 
 import Data.Char        (toLower)
-import Foreign.C        (CString, CInt, peekCStringLen, newCString)
+import Foreign.C        (CString(..), CInt(..), peekCStringLen, newCString)
 import Foreign.Ptr      (Ptr)
 
 data StemmerStruct
