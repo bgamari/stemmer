@@ -9,7 +9,7 @@ module NLP.Stemmer (
 
 import           NLP.Stemmer.C (Stemmer)
 import qualified NLP.Stemmer.C as C
-import           Foreign       (unsafePerformIO)
+import           System.IO.Unsafe (unsafePerformIO)
 
 -- | Stem a word
 {-# NOINLINE stem #-}
