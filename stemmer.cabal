@@ -1,5 +1,5 @@
 Name:            stemmer
-Version:         0.3
+Version:         0.4
 Synopsis:        Haskell bindings to the Snowball stemming library.
 Description:     Haskell bindings to the Snowball stemming library.
 Category:        Natural Language Processing, Text
