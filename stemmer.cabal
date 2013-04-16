@@ -10,7 +10,7 @@ Author:          Tupil
 Maintainer:      Ben Gamari <bgamari.foss@gmail.com>
 Homepage:        http://blog.tupil.com/tag/stemmer
 Build-Type:      Simple
-Cabal-Version:   >= 1.2
+Cabal-Version:   >= 1.6
 
 Extra-Source-Files:
     libstemmer_c/include/libstemmer.h
