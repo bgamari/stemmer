@@ -62,7 +62,6 @@ Library
         libstemmer_c/runtime/utilities.c
         libstemmer_c/runtime/api.c
         libstemmer_c/libstemmer/libstemmer_utf8.c
-        libstemmer_c/libstemmer/libstemmer.c
         libstemmer_c/src_c/stem_UTF_8_english.c
         libstemmer_c/src_c/stem_ISO_8859_1_finnish.c
         libstemmer_c/src_c/stem_KOI8_R_russian.c
