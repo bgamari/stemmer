@@ -56,7 +56,7 @@ source-repository head
 
 Library
     Extensions:      ForeignFunctionInterface
-    Build-Depends:   base < 4.8
+    Build-Depends:   base < 4.9
     Exposed-Modules: NLP.Stemmer, NLP.Stemmer.C
     C-Sources:
         libstemmer_c/runtime/utilities.c
