@@ -1,5 +1,5 @@
 Name:            stemmer
-Version:         0.5.1
+Version:         0.5.2
 Synopsis:        Haskell bindings to the Snowball stemming library.
 Description:     Haskell bindings to the Snowball stemming library.
 Category:        Natural Language Processing, Text
@@ -56,7 +56,7 @@ source-repository head
 
 Library
     Extensions:      ForeignFunctionInterface
-    Build-Depends:   base < 4.9
+    Build-Depends:   base >= 4.0 && < 4.10
     Exposed-Modules: NLP.Stemmer, NLP.Stemmer.C
     C-Sources:
         libstemmer_c/runtime/utilities.c
